@@ -2,7 +2,7 @@
 
 Squeeze consecutive, repeating characters to a single one.
 
-Same as `echo "heeelo" | tr -s 'e'`, where the result is `helo`.
+Same as `echo "heeelo" | tr -s 'e'`, where the result would be `helo`.
 
 # Installation
 
