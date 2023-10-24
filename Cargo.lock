@@ -3,5 +3,5 @@
 version = 3
 
 [[package]]
-name = "squeeze"
+name = "string_squeeze"
 version = "0.1.0"
