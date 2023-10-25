@@ -5,9 +5,9 @@
 //! `String::squeeze_in_place`.
 //!
 //! The methods are implemented with a standalone function, `squeeze`, which may
-//! be used when preferred.
+//! be used imported separately and used instead when preferred.
 //!
-//! Note that multiple occurences of consecutive characters are also replaces.
+//! Note that multiple occurences of consecutive characters are also replaced.
 //! For example, given the input "heeeleee", the output would be "hele".
 //!
 //! Additionally, variable cased consecutive characters will not be removed.
