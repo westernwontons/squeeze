@@ -56,15 +56,15 @@
 /// assert_eq!(my_string, "helo");
 /// ```
 pub fn squeeze(string: &mut String, needle: char) {
-    let mut prev: Option<char> = None;
-    string.retain(|curr| {
-        if curr != needle || Some(curr) != prev {
-            prev = Some(curr);
-            true
-        } else {
-            false
-        }
-    })
+	let mut prev: Option<char> = None;
+	string.retain(|curr| {
+		if curr != needle || Some(curr) != prev {
+			prev = Some(curr);
+			true
+		} else {
+			false
+		}
+	})
 }
 
 /// Squeeze consecutive, repeating characters in a `String` into a single one
@@ -90,79 +90,79 @@ pub fn squeeze(string: &mut String, needle: char) {
 /// assert_eq!(my_string_in_place, "helo");
 /// ```
 pub trait SqueezeExt {
-    /// Squeeze consecutive, repeating characters together into a single one
-    ///
-    /// # Arguments
-    ///
-    /// * `needle` - the `char` to squeeze
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use squeeze::SqueezeExt;
-    ///
-    /// let mut my_string = String::from("heeelo");
-    /// my_string.squeeze_in_place('e');
-    ///
-    /// assert_eq!(my_string, "helo");
-    /// ```
-    fn squeeze_in_place(&mut self, needle: char);
-    /// Squeeze consecutive, repeating characters together into a single one
-    /// Returns a new, independent `String`
-    ///
-    /// # Arguments
-    ///
-    /// * `needle` - the `char` to squeeze
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// use squeeze::SqueezeExt;
-    ///
-    /// let mut my_string = String::from("heeelo");
-    /// let squeezed = my_string.squeeze('e');
-    ///
-    /// assert_eq!(squeezed, "helo");
-    /// ```
-    fn squeeze(&self, needle: char) -> String;
+	/// Squeeze consecutive, repeating characters together into a single one
+	///
+	/// # Arguments
+	///
+	/// * `needle` - the `char` to squeeze
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use squeeze::SqueezeExt;
+	///
+	/// let mut my_string = String::from("heeelo");
+	/// my_string.squeeze_in_place('e');
+	///
+	/// assert_eq!(my_string, "helo");
+	/// ```
+	fn squeeze_in_place(&mut self, needle: char);
+	/// Squeeze consecutive, repeating characters together into a single one
+	/// Returns a new, independent `String`
+	///
+	/// # Arguments
+	///
+	/// * `needle` - the `char` to squeeze
+	///
+	/// # Examples
+	///
+	/// ```
+	/// use squeeze::SqueezeExt;
+	///
+	/// let mut my_string = String::from("heeelo");
+	/// let squeezed = my_string.squeeze('e');
+	///
+	/// assert_eq!(squeezed, "helo");
+	/// ```
+	fn squeeze(&self, needle: char) -> String;
 }
 
 impl SqueezeExt for String {
-    fn squeeze_in_place(&mut self, needle: char) {
-        squeeze(self, needle);
-    }
+	fn squeeze_in_place(&mut self, needle: char) {
+		squeeze(self, needle);
+	}
 
-    fn squeeze(&self, needle: char) -> String {
-        let mut this = self.clone();
-        squeeze(&mut this, needle);
-        this
-    }
+	fn squeeze(&self, needle: char) -> String {
+		let mut this = self.clone();
+		squeeze(&mut this, needle);
+		this
+	}
 }
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+	use super::*;
 
-    #[test]
-    fn should_remove_consecutive_characters_in_string() {
-        let mut case_1 = String::from("goodbye");
-        squeeze(&mut case_1, 'o');
-        assert_eq!(case_1, "godbye");
+	#[test]
+	fn should_remove_consecutive_characters_in_string() {
+		let mut case_1 = String::from("goodbye");
+		squeeze(&mut case_1, 'o');
+		assert_eq!(case_1, "godbye");
 
-        let mut case_2 = String::from("goodbyegoodbye");
-        squeeze(&mut case_2, 'o');
-        assert_eq!(case_2, "godbyegodbye");
+		let mut case_2 = String::from("goodbyegoodbye");
+		squeeze(&mut case_2, 'o');
+		assert_eq!(case_2, "godbyegodbye");
 
-        let mut case_3 = String::from("heeeeeeeelo world");
-        squeeze(&mut case_3, 'e');
-        assert_eq!(case_3, "helo world");
+		let mut case_3 = String::from("heeeeeeeelo world");
+		squeeze(&mut case_3, 'e');
+		assert_eq!(case_3, "helo world");
 
-        let mut case_4 = String::from("heeeeeeeeleeeeeeeee");
-        squeeze(&mut case_4, 'e');
-        assert_eq!(case_4, "hele");
+		let mut case_4 = String::from("heeeeeeeeleeeeeeeee");
+		squeeze(&mut case_4, 'e');
+		assert_eq!(case_4, "hele");
 
-        let mut case_5 = String::from("hEEElEEE");
-        squeeze(&mut case_5, 'E');
-        assert_eq!(case_5, "hElE");
-    }
+		let mut case_5 = String::from("hEEElEEE");
+		squeeze(&mut case_5, 'E');
+		assert_eq!(case_5, "hElE");
+	}
 }
